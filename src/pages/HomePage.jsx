@@ -1,33 +1,56 @@
 import { useState, useEffect } from "react";
-import Row from "../components/Row";
-import axios from "axios";
+import RowCardSlider from "../components/RowCardSlider";
+import BannerSlider from "../components/BannerSlider";
 
 const HomePage = () => {
   return (
-    <div className="mt-5 mb-16 space-y-8">
-      {/* <Banner movie={movie} /> */}
-      <Row
-        id={1}
-        title="Upcoming Movies"
-        url={`https://api.themoviedb.org/3/movie/upcoming?api_key=${
-          import.meta.env.VITE_TMDB_API_KEY
-        }&language=en-US&page=1`}
-      />
-      <Row
-        id={2}
-        title="Popular Movies"
-        url={`https://api.themoviedb.org/3/movie/popular?api_key=${
-          import.meta.env.VITE_TMDB_API_KEY
-        }&language=en-US&page=1`}
-      />
-      <Row
-        id={3}
-        title="Top Rated Movies"
-        url={`https://api.themoviedb.org/3/movie/top_rated?api_key=${
-          import.meta.env.VITE_TMDB_API_KEY
-        }&language=en-US&page=1&include_adult=false`}
-      />
-    </div>
+    <>
+      <div className="mt-5 mb-16 space-y-8">
+        {/* <Banner movie={movie} /> */}
+        <BannerSlider
+          url={`https://api.themoviedb.org/3/discover/movie?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }&region=ID&primary_release_year=2022&year=2022`}
+        />
+      </div>
+      <div className="mt-5 mb-16 space-y-8">
+        <RowCardSlider
+          id={1}
+          type="movie"
+          title="Trending Movies"
+          url={`https://api.themoviedb.org/3/trending/movie/day?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }`}
+        />
+
+        <RowCardSlider
+          id={2}
+          title="Indonesia Movies"
+          type="movie"
+          url={`https://api.themoviedb.org/3/discover/movie?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }&release_date.gte=2022-09-01&release_date.lte=2022-10-25&region=ID&page=1`}
+        />
+
+        <RowCardSlider
+          id={3}
+          type="series"
+          title="Trending Series"
+          url={`https://api.themoviedb.org/3/trending/tv/day?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }`}
+        />
+
+        <RowCardSlider
+          id={4}
+          type="movie"
+          title="Top Rated Movies"
+          url={`https://api.themoviedb.org/3/movie/top_rated?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }&page=1`}
+        />
+      </div>
+    </>
   );
 };
 
