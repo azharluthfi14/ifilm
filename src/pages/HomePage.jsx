@@ -7,10 +7,15 @@ const HomePage = () => {
     <>
       <div className="mt-5 mb-16 space-y-8">
         {/* <Banner movie={movie} /> */}
-        <BannerSlider
+        {/* <BannerSlider
           url={`https://api.themoviedb.org/3/discover/movie?api_key=${
             import.meta.env.VITE_TMDB_API_KEY
           }&region=ID&primary_release_year=2022&year=2022`}
+        /> */}
+        <BannerSlider
+          url={`https://api.themoviedb.org/3/trending/all/week?api_key=${
+            import.meta.env.VITE_TMDB_API_KEY
+          }`}
         />
       </div>
       <div className="mt-5 mb-16 space-y-8">

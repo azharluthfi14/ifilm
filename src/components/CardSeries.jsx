@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const CardSeries = ({ item }) => {
   return (
     <Link
-      to={`tv/${item?.id}`}
+      to={`/tv/${item?.id}`}
       className="rounded-lg h-36 lg:h-52  w-full relative 
       inline-block mt-5 overflow-hidden cursor-pointer"
     >

@@ -3,24 +3,28 @@ import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar } from "swiper";
 import CardMovie from "./CardMovie";
-import CardAllMovie from "./CardAllMovie";
 import CardSeries from "./CardSeries";
-import CardAllSeries from "./CardAllSeries";
+import SkeletonCard from "./SkeletonCard";
 
-const RowCardSlider = ({ id, title, url, type, path }) => {
+const RowCardSlider = ({ id, title, url, type }) => {
   const prevRef = useRef();
   const nextRef = useRef();
   const wrapperRef = useRef();
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
+    setLoading(true);
     const getData = async () => {
       const response = await axios.get(url);
       setData(response.data?.results);
+      setLoading(false);
     };
     getData();
   }, [url]);
+
+  if (loading) return <SkeletonCard />;
 
   return (
     <div ref={wrapperRef}>
@@ -67,28 +71,22 @@ const RowCardSlider = ({ id, title, url, type, path }) => {
             },
             320: {
               slidesPerView: 3,
-              slidesPerGroup: 2,
+              slidesPerGroup: 3,
               spaceBetweenSlides: 10,
             },
           }}
         >
           {type === "movie"
-            ? data.map((item, id) => (
+            ? data &&
+              data.map((item, id) => (
                 <SwiperSlide key={id}>
-                  {path === "movies" ? (
-                    <CardAllMovie item={item} />
-                  ) : (
-                    <CardMovie item={item} />
-                  )}
+                  <CardMovie item={item} />
                 </SwiperSlide>
               ))
-            : data.map((item, id) => (
+            : data &&
+              data.map((item, id) => (
                 <SwiperSlide key={id}>
-                  {path === "series" ? (
-                    <CardAllSeries item={item} />
-                  ) : (
-                    <CardSeries item={item} />
-                  )}
+                  <CardSeries item={item} />
                 </SwiperSlide>
               ))}
         </Swiper>

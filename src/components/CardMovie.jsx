@@ -3,14 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 const CardMovie = ({ item }) => {
   const navigate = useNavigate();
 
-  const handleNavigate = (id) => {
-    navigate(`movie/${id}`);
-  };
-
   return (
     <Link
       // onClick={() => handleNavigate(item.id)}
-      to={`movie/${item.id}`}
+      to={`/movie/${item.id}`}
       className="rounded-lg h-36 lg:h-52  w-full relative 
         inline-block mt-5 overflow-hidden cursor-pointer"
     >

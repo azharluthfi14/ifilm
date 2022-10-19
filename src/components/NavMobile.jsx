@@ -60,7 +60,7 @@ const NavMobile = () => {
               />
             </svg>
 
-            <span className="text-xs">Film</span>
+            <span className="text-xs">Movies</span>
           </NavLink>
           <NavLink
             to="tv"

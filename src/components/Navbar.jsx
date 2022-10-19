@@ -11,12 +11,21 @@ const Navbar = () => {
     <nav className="h-16 flex items-center sticky bg-slate-900 border-b border-slate-800 shadow top-0 w-full z-20">
       <div className="layout flex justify-between items-center">
         <div className="flex flex-row space-x-7 items-center">
-          <NavLink to="/" className="text-lg font-bold text-white">
-            <img
-              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_short-8e7b30f73a4020692ccca9c88bafe5dcb6f8a62a4c6bc55cd9ba82bb2cd95f6c.svg"
-              alt=""
-              className="w-28"
-            />
+          <NavLink to="/" className="text-2xl flex items-center font-bold ">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-6 h-6 mr-1 text-sky-500"
+            >
+              <path
+                fillRule="evenodd"
+                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z"
+                clipRule="evenodd"
+              />
+            </svg>
+
+            <span className="text-white tracking-wide">IFILM</span>
           </NavLink>
 
           <ul className="hidden md:flex flex-row items-center space-x-8">
@@ -26,8 +35,8 @@ const Navbar = () => {
                   to={item.url}
                   className={({ isActive }) =>
                     [
-                      "text-gray-300",
-                      isActive ? "text-violet-500 font-bold" : null,
+                      "text-gray-300 hover:text-sky-400",
+                      isActive ? "text-sky-500 font-bold" : null,
                     ]
                       .filter(Boolean)
                       .join(" ")

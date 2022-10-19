@@ -1,16 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Banner = ({ movie }) => {
   return (
-    <div className="rounded-xl flex relative h-full md:h-[400px] bg-slate-800 overflow-hidden justify-between mt-5 mb-3">
+    <Link
+      to={`/${movie.media_type}/${movie.id}`}
+      className="rounded-xl flex relative h-full md:h-[400px] bg-slate-800 overflow-hidden justify-between mt-5 mb-3"
+    >
       <div
         className="hidden md:flex z-10 relative flex-col justify-center  px-12 md:w-5/12 h-full 
    "
       >
-        <h1 className="mb-2 text-3xl text-white font-bold">{movie?.title}</h1>
+        <h1 className="mb-2 text-3xl text-white font-bold">
+          {movie?.title} {movie?.name}
+        </h1>
         <ul className="flex items-center flex-row mb-5 space-x-3">
           {movie?.adult ? <li>18+</li> : <li>PG-13</li>}
-          <li>{movie?.release_date.slice(0, 4)}</li>
+          <li>{movie?.release_date?.slice(0, 4)}</li>
           <li className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -40,14 +46,23 @@ const Banner = ({ movie }) => {
       </div>
       <div className="absolute hidden md:block w-[800px] h-full bg-gradient-to-r from-slate-800 to-transparent left-[37vw]"></div>
       <div className="w-full md:w-7/12">
-        <img
-          src={`https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}`}
-          alt="banner-movie"
-          loading="lazy"
-          className="w-full h-full object-contain md:object-cover"
-        />
+        {movie?.backdrop_path ? (
+          <img
+            src={`https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}`}
+            alt="banner-movie"
+            loading="lazy"
+            className="w-full h-full object-contain md:object-cover"
+          />
+        ) : (
+          <img
+            src={`https://via.placeholder.com/150/1e293b/FFF?text=No+Data`}
+            alt="banner-movie"
+            loading="lazy"
+            className="w-full h-full object-contain md:object-cover"
+          />
+        )}
       </div>
-    </div>
+    </Link>
   );
 };
 

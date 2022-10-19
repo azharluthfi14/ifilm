@@ -9,21 +9,26 @@ import {
   Controller,
 } from "swiper";
 import Banner from "./Banner";
+import SkeletonBanner from "./SkeletonBanner";
 
 const BannerSlider = ({ id, title, url }) => {
   const prevBannerRef = useRef();
   const nextBannerRef = useRef();
 
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState("");
 
   useEffect(() => {
+    setLoading(true);
     const getData = async () => {
       const response = await axios.get(url);
       setData(response.data?.results);
-      console.log(response.data?.results);
+      setLoading(false);
     };
     getData();
   }, []);
+
+  if (loading) return <SkeletonBanner />;
 
   return (
     <div>
