@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import moment from "moment/moment";
 import { Swiper, SwiperSlide } from "swiper/react";
 import RowCardSlider from "../components/RowCardSlider";
 import ReactPlayer from "react-player/youtube";
 import SkeletonBanner from "../components/SkeletonBanner";
 import SkeletonVideo from "../components/SkeletonVideo";
+import { convertDurattion } from "../utils/convertDuration";
 
 const DetailMovie = () => {
   const { id } = useParams();
@@ -20,10 +20,11 @@ const DetailMovie = () => {
       const response = await axios.get(
         `https://api.themoviedb.org/3/movie/${id}?api_key=${
           import.meta.env.VITE_TMDB_API_KEY
-        }&language=en-US&include_image_language=en&append_to_response=videos,images`
+        }&language=en-US&include_image_language=en&append_to_response=videos,images,credits`
       );
 
       setMovie(response.data);
+      console.log(response.data);
 
       if (response?.data?.videos) {
         const index = response?.data?.videos?.results.findIndex(
@@ -36,26 +37,19 @@ const DetailMovie = () => {
     getData();
   }, [id]);
 
-  let duration = moment
-    .utc(moment.duration(movie.runtime, "minutes").asMilliseconds())
-    .format("h [hr] m [min]");
-
   return (
     <>
       {loading ? (
         <SkeletonBanner />
       ) : (
         <>
-          <div className="rounded-xl flex relative h-full md:h-[400px] bg-slate-800 overflow-hidden justify-between mt-5 mb-3">
-            <div
-              className="hidden md:flex z-10 relative flex-col justify-center  px-8 md:w-5/12 h-full 
- "
-            >
+          <div className="rounded-xl flex relative h-full md:h-[400px] bg-[#030b17] overflow-hidden justify-between mt-5 mb-3">
+            <div className="hidden md:flex z-10 relative flex-col justify-center  px-8 md:w-5/12 h-full">
               <h1 className="mb-2 text-3xl text-white font-bold">
                 {movie?.title}
               </h1>
               <ul className="flex flex-row mb-5 w-full text-sm space-x-3">
-                <li>{duration}</li>
+                <li>{convertDurattion(movie?.runtime)}</li>
                 <li>{movie?.release_date?.slice(0, 4)}</li>
                 {movie?.genres?.slice(0, 1).map((home, i) => (
                   <li key={i}>{home.name}</li>
@@ -81,7 +75,7 @@ const DetailMovie = () => {
                 Watch
               </button>
             </div>
-            <div className="absolute hidden md:block w-[800px] h-full bg-gradient-to-r from-slate-800 to-transparent left-[37vw]"></div>
+            <div className="absolute hidden md:block w-[800px] h-full bg-gradient-to-r from-[#030b17] to-transparent left-[37vw]"></div>
             <div className="w-full md:w-7/12">
               <img
                 src={`https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}`}
@@ -91,29 +85,49 @@ const DetailMovie = () => {
             </div>
           </div>
 
-          <div className="block md:hidden">
-            <h1 className="mb-2 text-white font-bold">{movie?.title}</h1>
-            <div className="inline-flex whitespace-nowrap mb-5 w-full font-semibold text-slate-300 gap-1">
-              <span className="after:content-['•'] after:ml-2 text-xs">
-                {duration}
-              </span>
-              <span className="after:content-['•'] after:ml-2 text-xs">
-                {movie?.release_date?.slice(0, 4)}
-              </span>
-              {movie?.genres?.slice(0, 1).map((home, i) => (
-                <span
-                  className="after:content-['•'] after:ml-2 text-xs"
-                  key={i}
-                >
-                  {home.name}
-                </span>
+          {/*  <div className="my-7">
+            <h3>Cast</h3>
+            <div className="grid grid-cols-2 md:grid-cols-6 ">
+              {movie?.credits?.cast.slice(0, 6).map((c) => (
+                <div key={c.id} className="flex flex-col items-center m-2">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${c.profile_path}`}
+                    alt={c.character}
+                    className="rounded-full mb-2 ring-4 ring-sky-500 w-20 h-20 object-cover"
+                  />
+                  <p> {c.name}</p>
+                  <p className="text-gray-700 italic"> {c.character}</p>
+                </div>
               ))}
+            </div>
+          </div> */}
 
-              {movie?.production_companies?.slice(0, 1).map((home, i) => (
-                <span className="text-xs" key={i}>
-                  {home.name}
+          <div className="block md:hidden">
+            <h3 className="mb-1 text-white font-bold">{movie?.title}</h3>
+            <div className="pb-3 border-b border-slate-700 mb-3">
+              <div className="inline-flex whitespace-nowrap w-full mb-2 font-semibold text-slate-300 gap-1">
+                <span className="after:content-['•'] after:ml-2 text-xs">
+                  {convertDurattion(movie?.runtime)}
                 </span>
-              ))}
+                <span className="after:content-['•'] after:ml-2 text-xs">
+                  {movie?.release_date?.slice(0, 4)}
+                </span>
+                {movie?.production_companies?.slice(0, 1).map((home, i) => (
+                  <span className="text-xs" key={i}>
+                    {home.name}
+                  </span>
+                ))}
+              </div>
+              <div className="flex flex-row gap-2">
+                {movie?.genres?.slice(0, 2).map((home, i) => (
+                  <span
+                    className="bg-slate-600 py-1.5 px-5 rounded-full text-xs text-white"
+                    key={i}
+                  >
+                    {home.name}
+                  </span>
+                ))}
+              </div>
             </div>
             <p className="leading-relaxed text-gray-300">{movie?.overview}</p>
           </div>
@@ -144,7 +158,7 @@ const DetailMovie = () => {
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${trailer}`}
                 width="100%"
-                height="100%"
+                height="230px"
                 controls={true}
               />
             </SwiperSlide>
@@ -154,7 +168,7 @@ const DetailMovie = () => {
                 <img
                   src={`https://image.tmdb.org/t/p/w1280/${item?.file_path}`}
                   alt="backdrop"
-                  className="h-[9.5rem] w-full object-cover"
+                  className="w-full object-cover"
                   loading="lazy"
                 />
               </SwiperSlide>

@@ -29,23 +29,57 @@ const Navbar = () => {
           </NavLink>
 
           <ul className="hidden md:flex flex-row items-center space-x-8">
-            {navLink.map((item) => (
-              <li key={item.name}>
-                <NavLink
-                  to={item.url}
-                  className={({ isActive }) =>
-                    [
-                      "text-gray-300 hover:text-sky-400",
-                      isActive ? "text-sky-500 font-bold" : null,
-                    ]
-                      .filter(Boolean)
-                      .join(" ")
-                  }
+            <li>
+              <NavLink
+                to="/movie"
+                className={({ isActive }) =>
+                  [
+                    "text-gray-300 hover:text-sky-400 flex items-center",
+                    isActive ? "text-sky-500 font-bold" : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" ")
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  className="w-6 h-6 mr-1"
                 >
-                  {item.name}
-                </NavLink>
-              </li>
-            ))}
+                  <path d="M20 3H4c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zm.001 6c-.001 0-.001 0 0 0h-.465l-2.667-4H20l.001 4zM9.536 9 6.869 5h2.596l2.667 4H9.536zm5 0-2.667-4h2.596l2.667 4h-2.596zM4 5h.465l2.667 4H4V5zm0 14v-8h16l.002 8H4z"></path>
+                  <path d="m10 18 5.5-3-5.5-3z"></path>
+                </svg>
+                Movie
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/tv"
+                className={({ isActive }) =>
+                  [
+                    "text-gray-300 hover:text-sky-400 flex items-center",
+                    isActive ? "text-sky-500 font-bold" : null,
+                  ]
+                    .filter(Boolean)
+                    .join(" ")
+                }
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  className="w-6 h-6 mr-1"
+                >
+                  <path d="M20 6h-5.586l2.293-2.293-1.414-1.414L12 5.586 8.707 2.293 7.293 3.707 9.586 6H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2zM4 19V8h16l.002 11H4z"></path>
+                </svg>
+                Series
+              </NavLink>
+            </li>
           </ul>
         </div>
         <div className="flex md:hidden">
