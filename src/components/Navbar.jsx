@@ -25,7 +25,7 @@ const Navbar = () => {
               />
             </svg>
 
-            <span className="text-white tracking-wide">IFILM</span>
+            <span className="text-white tracking-wide">FilmStar</span>
           </NavLink>
 
           <ul className="hidden md:flex flex-row items-center space-x-8">
