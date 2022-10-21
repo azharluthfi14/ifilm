@@ -8,7 +8,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="h-16 flex items-center sticky bg-slate-900 border-b border-slate-800 shadow top-0 w-full z-20">
+    <nav className="h-16 flex items-center sticky bg-gray-900 border-b border-gray-800 shadow top-0 w-full z-20">
       <div className="layout flex justify-between items-center">
         <div className="flex flex-row space-x-7 items-center">
           <NavLink to="/" className="text-2xl flex items-center font-bold ">
@@ -35,7 +35,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   [
                     "text-gray-300 hover:text-sky-400 flex items-center",
-                    isActive ? "text-sky-500 font-bold" : null,
+                    isActive ? "text-sky-400 font-bold" : null,
                   ]
                     .filter(Boolean)
                     .join(" ")
@@ -61,7 +61,7 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   [
                     "text-gray-300 hover:text-sky-400 flex items-center",
-                    isActive ? "text-sky-500 font-bold" : null,
+                    isActive ? "text-sky-400 font-bold" : null,
                   ]
                     .filter(Boolean)
                     .join(" ")

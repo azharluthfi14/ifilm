@@ -5,7 +5,7 @@ const Banner = ({ movie }) => {
   return (
     <Link
       to={`/${movie.media_type}/${movie.id}`}
-      className="rounded-xl flex relative h-full md:h-[400px] bg-slate-800 overflow-hidden justify-between mt-5 mb-3"
+      className="rounded-xl flex overflow-hidden relative h-full md:h-[400px] bg-[#030b17] justify-between"
     >
       <div
         className="hidden md:flex z-10 relative flex-col justify-center  px-12 md:w-5/12 h-full 
@@ -44,7 +44,10 @@ const Banner = ({ movie }) => {
           </p>
         )}
       </div>
-      <div className="absolute hidden md:block w-[800px] h-full bg-gradient-to-r from-slate-800 to-transparent left-[37vw]"></div>
+      <div
+        className="absolute md:block w-[800px] h-full bg-gradient-to-t md:bg-gradient-to-r 
+      from-[#030b17] to-transparent md:left-[37vw]"
+      ></div>
       <div className="w-full md:w-7/12">
         {movie?.backdrop_path ? (
           <img
@@ -60,6 +63,18 @@ const Banner = ({ movie }) => {
             loading="lazy"
             className="w-full h-full object-contain md:object-cover"
           />
+        )}
+      </div>
+      <div className="md:hidden absolute bottom-1 p-3.5">
+        <h4 className="text-slate-200 mb-1 text-sm">
+          {movie?.name} {movie.title}
+        </h4>
+        {movie?.overview.length > 150 ? (
+          <p className="text-xs font-base text-slate-300">
+            {movie?.overview.slice(0, 100)}...
+          </p>
+        ) : (
+          <p className="font-base text-xs text-slate-300">{movie?.overview}</p>
         )}
       </div>
     </Link>

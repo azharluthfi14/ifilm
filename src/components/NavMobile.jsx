@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const NavMobile = () => {
   return (
     <div className="block md:hidden pt-5">
-      <div className="flex items-center bottom-0 inset-x-0 fixed z-20 bg-slate-900 border-t border-slate-800 py-2">
+      <div className="flex items-center bottom-0 inset-x-0 fixed z-20 bg-gray-900 border-t border-gray-800 py-2">
         <div className="layout gap-10 flex justify-between items-center">
           <NavLink
             to="/"

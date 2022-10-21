@@ -56,7 +56,7 @@ const BannerSlider = ({ id, title, url }) => {
           </svg>
         </div>
         <Swiper
-          spaceBetween={30}
+          spaceBetween={10}
           autoplay={{
             delay: 3500,
             disableOnInteraction: false,
@@ -72,7 +72,7 @@ const BannerSlider = ({ id, title, url }) => {
           }}
         >
           {data?.map((item) => (
-            <SwiperSlide key={item.id}>
+            <SwiperSlide className="rounded-xl" key={item.id}>
               <Banner movie={item} />
             </SwiperSlide>
           ))}

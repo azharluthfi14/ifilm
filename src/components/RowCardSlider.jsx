@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar } from "swiper";
+import { Navigation, Scrollbar, FreeMode } from "swiper";
 import CardMovie from "./CardMovie";
 import CardSeries from "./CardSeries";
 import SkeletonCard from "./SkeletonCard";
@@ -19,12 +19,15 @@ const RowCardSlider = ({ id, title, url, type }) => {
     const getData = async () => {
       const response = await axios.get(url);
       setData(response.data?.results);
+      console.log(response.data?.results);
       setLoading(false);
     };
     getData();
   }, [url]);
 
   if (loading) return <SkeletonCard />;
+
+  if (data?.length <= 3) return;
 
   return (
     <div ref={wrapperRef}>
@@ -52,22 +55,20 @@ const RowCardSlider = ({ id, title, url, type }) => {
           </svg>
         </div>
         <Swiper
-          modules={[Navigation, Pagination, Scrollbar]}
+          modules={[Navigation, Scrollbar, FreeMode]}
           navigation={{
             prevEl: `.prev${id}`,
             nextEl: `.next${id}`,
             clickable: true,
           }}
           spaceBetween={10}
-          slidesPerView={8}
-          slidesPerGroup={8}
           speed={1800}
           loop={true}
           breakpoints={{
             1024: {
               slidesPerView: 8,
               slidesPerGroup: 8,
-              spaceBetweenSlides: 150,
+              spaceBetweenSlides: 20,
             },
             320: {
               slidesPerView: 3,
@@ -77,14 +78,12 @@ const RowCardSlider = ({ id, title, url, type }) => {
           }}
         >
           {type === "movie"
-            ? data &&
-              data.map((item, id) => (
+            ? data.map((item, id) => (
                 <SwiperSlide key={id}>
                   <CardMovie item={item} />
                 </SwiperSlide>
               ))
-            : data &&
-              data.map((item, id) => (
+            : data.map((item, id) => (
                 <SwiperSlide key={id}>
                   <CardSeries item={item} />
                 </SwiperSlide>

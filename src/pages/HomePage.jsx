@@ -5,7 +5,7 @@ import BannerSlider from "../components/BannerSlider";
 const HomePage = () => {
   return (
     <>
-      <div className="mt-5 mb-16 space-y-8">
+      <div className="mt-5 mb-3 md:mb-8">
         {/* <Banner movie={movie} /> */}
         {/* <BannerSlider
           url={`https://api.themoviedb.org/3/discover/movie?api_key=${
@@ -18,7 +18,7 @@ const HomePage = () => {
           }`}
         />
       </div>
-      <div className="mt-5 mb-16 space-y-8">
+      <div className="mb-16 space-y-5">
         <RowCardSlider
           id={1}
           type="movie"
