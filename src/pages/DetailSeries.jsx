@@ -45,7 +45,7 @@ const DetailSeries = () => {
             <div className="overflow-hidden h-full rounded-xl">
               <div className="max-w-[990px] h-full w-full md:w-[450px] lg:w-[550px] xl:w-[650px] 2xl:w-[850px] float-right flex">
                 <img
-                  src={`https://image.tmdb.org/t/p/w1280/${series?.images?.backdrops[0].file_path}`}
+                  src={`https://image.tmdb.org/t/p/w1280/${series?.backdrop_path}`}
                   alt="banner"
                   className="w-full md:h-full object-cover"
                 />
@@ -54,7 +54,7 @@ const DetailSeries = () => {
             <div className="hidden md:block absolute top-0 right-[251px] lg:right-[351px] xl:right-[451px] 2xl:right-[651px] w-[200px] h-full bg-gradient-to-r from-[#030b17] to-transparent"></div>
             <div className="hidden md:block absolute top-0 h-full w-full">
               <div className="pl-10 mt-12">
-                <h1 className="mb-2 text-3xl text-white font-bold">
+                <h1 className="mb-2 text-xl lg:text-3xl text-white font-bold">
                   {series?.name}
                 </h1>
                 <div

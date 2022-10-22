@@ -2,7 +2,7 @@ import React from "react";
 
 const SkeletonBanner = () => {
   return (
-    <div className="bg-slate-800 animate-pulse p-10 flex items-center rounded-xl hover:cursor-progress md:h-[450px]">
+    <div className="bg-slate-800 animate-pulse p-10 flex items-center rounded-xl hover:cursor-progress h-[190px] md:h-[385px] lg:h-[450px]">
       <div className="w-full flex items-center justify-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"

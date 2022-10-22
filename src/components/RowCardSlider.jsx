@@ -19,7 +19,6 @@ const RowCardSlider = ({ id, title, url, type }) => {
     const getData = async () => {
       const response = await axios.get(url);
       setData(response.data?.results);
-      console.log(response.data?.results);
       setLoading(false);
     };
     getData();
