@@ -48,7 +48,7 @@ const DetailMovie = () => {
             <div className="overflow-hidden h-full rounded-xl">
               <div className="max-w-[990px] h-full w-full md:w-[450px] lg:w-[550px] xl:w-[650px] 2xl:w-[850px] float-right flex">
                 <img
-                  src={`https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}`}
                   alt="banner"
                   className="w-full md:h-full object-cover"
                 />
@@ -87,7 +87,7 @@ const DetailMovie = () => {
                     </span>
                   ))}
                 </div>
-                <p className="w-[650px] leading-relaxed text-gray-300">
+                <p className="w-full md:w-[65%] flex items-center lg:w-[55%] md:h-[125px] lg:h-[145px] text-xs lg:text-sm leading-relaxed text-gray-300">
                   {movie?.overview}
                 </p>
                 <button className="mt-8 hover:text-sky-500 text-slate-300 w-max rounded-md flex items-center">
@@ -195,7 +195,7 @@ const DetailMovie = () => {
                 className="rounded-lg cursor-pointer overflow-hidden"
               >
                 <img
-                  src={`https://image.tmdb.org/t/p/w1280/${item?.file_path}`}
+                  src={`https://image.tmdb.org/t/p/w780/${item?.file_path}`}
                   alt="backdrop"
                   className="w-full object-cover"
                   loading="lazy"

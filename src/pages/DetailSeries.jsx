@@ -45,7 +45,7 @@ const DetailSeries = () => {
             <div className="overflow-hidden h-full rounded-xl">
               <div className="max-w-[990px] h-full w-full md:w-[450px] lg:w-[550px] xl:w-[650px] 2xl:w-[850px] float-right flex">
                 <img
-                  src={`https://image.tmdb.org/t/p/w1280/${series?.backdrop_path}`}
+                  src={`https://image.tmdb.org/t/p/w780/${series?.backdrop_path}`}
                   alt="banner"
                   className="w-full md:h-full object-cover"
                 />
@@ -90,7 +90,7 @@ const DetailSeries = () => {
                   ))}
                 </div>
 
-                <p className="w-full md:w-[65%] flex items-center lg:w-[55%] md:h-[125px] lg:h-[145px] text-xs lg:text-base leading-relaxed text-gray-300">
+                <p className="w-full md:w-[65%] flex items-center lg:w-[55%] md:h-[125px] lg:h-[145px] text-xs lg:text-sm leading-relaxed text-gray-300">
                   {series?.overview}
                 </p>
 
@@ -175,7 +175,7 @@ const DetailSeries = () => {
               },
             }}
           >
-            <SwiperSlide className="rounded-lg cursor-pointer overflow-hidden">
+            <SwiperSlide className="rounded-lg cursor-pointer aspect-video overflow-hidden">
               <ReactPlayer
                 url={`https://www.youtube.com/watch?v=${trailer}`}
                 width="100%"
@@ -187,7 +187,7 @@ const DetailSeries = () => {
             {series?.images?.backdrops.slice(0, 5).map((item, i) => (
               <SwiperSlide key={i} className="rounded-lg overflow-hidden">
                 <img
-                  src={`https://image.tmdb.org/t/p/w1280/${item?.file_path}`}
+                  src={`https://image.tmdb.org/t/p/w780/${item?.file_path}`}
                   alt="backdrop"
                   className="w-full cursor-pointer object-cover"
                   loading="lazy"

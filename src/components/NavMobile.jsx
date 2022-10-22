@@ -90,7 +90,17 @@ const NavMobile = () => {
 
             <span className="text-xs">Series</span>
           </NavLink>
-          <div className="w-full flex space-y-1 flex-col justify-center text-center items-center">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              [
+                "w-full flex space-y-1 flex-col justify-center text-center items-center",
+                isActive ? "text-violet-500 font-bold" : "text-slate-400",
+              ]
+                .filter(Boolean)
+                .join(" ")
+            }
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -107,7 +117,7 @@ const NavMobile = () => {
             </svg>
 
             <span className="text-xs">Saved</span>
-          </div>
+          </NavLink>
         </div>
       </div>
     </div>

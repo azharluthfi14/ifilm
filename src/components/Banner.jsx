@@ -8,7 +8,7 @@ const Banner = ({ movie }) => {
       className="rounded-xl flex overflow-hidden relative h-full md:h-[400px] bg-[#030b17] justify-between"
     >
       <div
-        className="hidden md:flex z-10 relative flex-col justify-center  px-12 md:w-5/12 h-full 
+        className="hidden md:flex z-10 relative flex-col justify-center px-12 md:w-5/12 h-full 
    "
       >
         <h1 className="mb-2 text-3xl text-white font-bold">
@@ -16,8 +16,11 @@ const Banner = ({ movie }) => {
         </h1>
         <ul className="flex items-center flex-row mb-5 space-x-3">
           {movie?.adult ? <li>18+</li> : <li>PG-13</li>}
-          <li>{movie?.release_date?.slice(0, 4)}</li>
-          <li className="flex items-center">
+          <li>
+            {movie?.release_date?.slice(0, 4)}{" "}
+            {movie?.first_air_date?.slice(0, 4)}
+          </li>
+          {/* <li className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -31,12 +34,12 @@ const Banner = ({ movie }) => {
               />
             </svg>
             <span className="text-lg">{movie?.vote_average}</span>
-          </li>
+          </li> */}
         </ul>
 
         {movie?.overview.length > 350 ? (
           <p className="w-[550px] font-base leading-relaxed text-gray-300">
-            {movie?.overview.slice(0, 300)}...
+            {movie?.overview.slice(0, 250)}..
           </p>
         ) : (
           <p className="w-[550px] font-base leading-relaxed text-gray-300">
@@ -51,10 +54,10 @@ const Banner = ({ movie }) => {
       <div className="w-full md:w-7/12">
         {movie?.backdrop_path ? (
           <img
-            src={`https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}`}
+            src={`https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}`}
             alt="banner-movie"
             loading="lazy"
-            className="w-full h-full object-contain md:object-cover"
+            className="w-max object-cover"
           />
         ) : (
           <img

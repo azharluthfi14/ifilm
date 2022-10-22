@@ -30,7 +30,7 @@ const RowCardSlider = ({ id, title, url, type }) => {
 
   return (
     <div ref={wrapperRef}>
-      <h3>{title}</h3>
+      <h3 className="w-max">{title}</h3>
       {/* Slider area */}
       <div className="relative flex items-center group">
         <div

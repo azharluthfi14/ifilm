@@ -1,17 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  Autoplay,
-  Controller,
-} from "swiper";
+import { Navigation, Autoplay } from "swiper";
 import Banner from "./Banner";
 import SkeletonBanner from "./SkeletonBanner";
 
-const BannerSlider = ({ id, title, url }) => {
+const BannerSlider = ({ title, url }) => {
   const prevBannerRef = useRef();
   const nextBannerRef = useRef();
 
