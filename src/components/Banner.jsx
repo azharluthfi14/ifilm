@@ -5,7 +5,7 @@ import { slugWithId } from "../utils/generateSlug";
 const Banner = ({ movie }) => {
   return (
     <Link
-      to={`/${movie.media_type}/${movie.id}`}
+      to={`/${movie.media_type}/${slugWithId(movie.title || movie.name, movie.id)}`}
       className="rounded-xl flex overflow-hidden relative h-full md:h-[400px] bg-[#030b17] justify-between"
     >
       <div
@@ -56,7 +56,7 @@ const Banner = ({ movie }) => {
             alt="banner-movie"
             loading="lazy"
             width="1100"
-            height="116"
+            height="616"
             className="w-full h-full object-cover"
           />
         ) : (

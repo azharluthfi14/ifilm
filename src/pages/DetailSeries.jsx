@@ -11,10 +11,11 @@ import getIdFromSlug from "../utils/parseSlug";
 
 const DetailSeries = () => {
   const { id } = useParams();
+  const seriesId = getIdFromSlug(id);
 
   const getDetail = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/tv/${id}?api_key=${
+      `https://api.themoviedb.org/3/tv/${seriesId}?api_key=${
         import.meta.env.VITE_TMDB_API_KEY
       }&include_adult=true&include_image_language=en&append_to_response=videos,images`
     );
@@ -22,7 +23,7 @@ const DetailSeries = () => {
     return data;
   };
 
-  const { data: series, isLoading } = useQuery(["detailSeries", id], getDetail);
+  const { data: series, isLoading } = useQuery(["detailSeries", seriesId], getDetail);
 
   const getTrailer = series?.videos.results.findIndex(
     (element) => element.type === "Trailer" || element.type === "Teaser"
@@ -203,7 +204,7 @@ const DetailSeries = () => {
           id={1}
           type="series"
           title="More Like This"
-          url={`https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=${
+          url={`https://api.themoviedb.org/3/tv/${seriesId}/recommendations?api_key=${
             import.meta.env.VITE_TMDB_API_KEY
           }&language=en-US&page=1`}
         />
