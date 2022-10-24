@@ -1,46 +1,54 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ReactPlayer from "react-player/youtube";
 import RowCardSlider from "../components/RowCardSlider";
 import SkeletonVideo from "../components/SkeletonVideo";
 import SkeletonBanner from "../components/SkeletonBanner";
+import getIdFromSlug from "../utils/parseSlug";
 
 const DetailSeries = () => {
   const { id } = useParams();
-  const [series, setSeries] = useState([]);
-  const [trailer, setTrailer] = useState("");
-  const [loading, setLoading] = useState();
+  const seriesId = getIdFromSlug(id);
 
-  useEffect(() => {
-    setLoading(true);
-    const getData = async () => {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/tv/${id}?api_key=${
-          import.meta.env.VITE_TMDB_API_KEY
-        }&include_adult=true&include_image_language=en&append_to_response=videos,images`
-      );
-      setSeries(response.data);
-      if (response?.data?.videos) {
-        const index = response?.data?.videos?.results.findIndex(
-          (element) => element.type === "Trailer"
-        );
-        setTrailer(response.data.videos?.results[index]?.key);
-      }
-      setLoading(false);
-    };
-    getData();
-  }, [id]);
+  const getDetail = async () => {
+    const { data } = await axios.get(
+      `https://api.themoviedb.org/3/tv/${seriesId}?api_key=${
+        import.meta.env.VITE_TMDB_API_KEY
+      }&include_adult=true&include_image_language=en&append_to_response=videos,images`
+    );
+
+    return data;
+  };
+
+  const { data: series, isLoading } = useQuery(["detailSeries", id], getDetail);
+
+  const getTrailer = series?.videos.results.findIndex(
+    (element) => element.type === "Trailer" || element.type === "Teaser"
+  );
+  const trailer = series?.videos.results[getTrailer]?.key;
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <div className="mt-5">
           <SkeletonBanner />
         </div>
       ) : (
         <>
+          <Helmet>
+            <title>{series?.name} - Watch Movies Online, Watch TV Series Online on Filmstar</title>
+            <meta
+              content="watch movies, movies online, watch TV, TV online, TV shows online, watch TV shows, stream movies, stream tv, instant streaming, watch online, movies, watch movies Indonesia, watch TV online, no download, full length movies"
+              name="keywords"
+            />
+            <meta
+              name="description"
+              content="Watch movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more."
+            />
+          </Helmet>
           <div className="my-5 w-full h-[190px] md:h-[385px] lg:h-[450px] rounded-xl relative bg-[#030b17]">
             <div className="overflow-hidden h-full rounded-xl">
               <div className="max-w-[990px] h-full w-full md:w-[450px] lg:w-[550px] xl:w-[650px] 2xl:w-[850px] float-right flex">
@@ -54,9 +62,7 @@ const DetailSeries = () => {
             <div className="hidden md:block absolute top-0 right-[251px] lg:right-[351px] xl:right-[451px] 2xl:right-[651px] w-[200px] h-full bg-gradient-to-r from-[#030b17] to-transparent"></div>
             <div className="hidden md:block absolute top-0 h-full w-full">
               <div className="pl-10 mt-12">
-                <h1 className="mb-2 text-xl lg:text-3xl text-white font-bold">
-                  {series?.name}
-                </h1>
+                <h1 className="mb-2 text-xl lg:text-3xl text-white font-bold">{series?.name}</h1>
                 <div
                   className="inline-flex whitespace-nowrap mb-3 w-full font-semibold 
                 text-slate-300 gap-2 text-base md:text-xs lg:text-base md:gap-1"
@@ -90,7 +96,7 @@ const DetailSeries = () => {
                   ))}
                 </div>
 
-                <p className="w-full md:w-[65%] flex items-center lg:w-[55%] md:h-[125px] lg:h-[145px] text-xs lg:text-sm leading-relaxed text-gray-300">
+                <p className="w-full md:w-[65%] flex items-center lg:w-[55%] md:h-[125px] lg:h-[145px] text-xs lg:text-base leading-relaxed text-gray-300">
                   {series?.overview}
                 </p>
 
@@ -108,12 +114,8 @@ const DetailSeries = () => {
                     />
                   </svg>
                   <div className="flex flex-col space-y-1">
-                    <span className="font-bold text-base lg:text-xl">
-                      Watch First Episode
-                    </span>
-                    <span className="text-xs lg:text-base">
-                      Season 1 • Episode 1
-                    </span>
+                    <span className="font-bold text-base lg:text-xl">Watch First Episode</span>
+                    <span className="text-xs lg:text-base">Season 1 • Episode 1</span>
                   </div>
                 </button>
               </div>
@@ -155,7 +157,7 @@ const DetailSeries = () => {
         </>
       )}
 
-      {loading ? (
+      {isLoading ? (
         <SkeletonVideo />
       ) : series?.images?.backdrops.length > 0 ? (
         <div className="my-10">
@@ -202,7 +204,7 @@ const DetailSeries = () => {
           id={1}
           type="series"
           title="More Like This"
-          url={`https://api.themoviedb.org/3/tv/${id}/recommendations?api_key=${
+          url={`https://api.themoviedb.org/3/tv/${seriesId}/recommendations?api_key=${
             import.meta.env.VITE_TMDB_API_KEY
           }&language=en-US&page=1`}
         />

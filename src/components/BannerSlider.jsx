@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper";
 import Banner from "./Banner";
@@ -9,20 +10,16 @@ const BannerSlider = ({ title, url }) => {
   const prevBannerRef = useRef();
   const nextBannerRef = useRef();
 
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState("");
+  const getData = async () => {
+    const { data } = await axios.get(url);
+    return data.results;
+  };
 
-  useEffect(() => {
-    setLoading(true);
-    const getData = async () => {
-      const response = await axios.get(url);
-      setData(response.data?.results);
-      setLoading(false);
-    };
-    getData();
-  }, []);
+  const { data, isLoading, isError, error } = useQuery(["data", url], getData);
 
-  if (loading) return <SkeletonBanner />;
+  if (isLoading) return <SkeletonBanner />;
+
+  if (isError) return <h1>{error}</h1>;
 
   return (
     <div>
@@ -42,11 +39,7 @@ const BannerSlider = ({ title, url }) => {
             stroke="currentColor"
             className="w-6 h-6 text-neutral-900"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
         </div>
         <Swiper
@@ -84,11 +77,7 @@ const BannerSlider = ({ title, url }) => {
             stroke="currentColor"
             className="w-6 h-6 text-neutral-900"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </div>
       </div>

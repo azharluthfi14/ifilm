@@ -17,8 +17,7 @@ const Banner = ({ movie }) => {
         <ul className="flex items-center flex-row mb-5 space-x-3">
           {movie?.adult ? <li>18+</li> : <li>PG-13</li>}
           <li>
-            {movie?.release_date?.slice(0, 4)}{" "}
-            {movie?.first_air_date?.slice(0, 4)}
+            {movie?.release_date?.slice(0, 4)} {movie?.first_air_date?.slice(0, 4)}
           </li>
           {/* <li className="flex items-center">
             <svg
@@ -42,9 +41,7 @@ const Banner = ({ movie }) => {
             {movie?.overview.slice(0, 250)}..
           </p>
         ) : (
-          <p className="w-[550px] font-base leading-relaxed text-gray-300">
-            {movie?.overview}
-          </p>
+          <p className="w-[550px] font-base leading-relaxed text-gray-300">{movie?.overview}</p>
         )}
       </div>
       <div
@@ -57,7 +54,7 @@ const Banner = ({ movie }) => {
             src={`https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}`}
             alt="banner-movie"
             loading="lazy"
-            className="w-max object-cover"
+            className="w-full h-full object-cover"
           />
         ) : (
           <img
@@ -73,9 +70,7 @@ const Banner = ({ movie }) => {
           {movie?.name} {movie.title}
         </h4>
         {movie?.overview.length > 150 ? (
-          <p className="text-xs font-base text-slate-300">
-            {movie?.overview.slice(0, 100)}...
-          </p>
+          <p className="text-xs font-base text-slate-300">{movie?.overview.slice(0, 100)}...</p>
         ) : (
           <p className="font-base text-xs text-slate-300">{movie?.overview}</p>
         )}

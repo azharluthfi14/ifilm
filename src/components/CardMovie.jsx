@@ -1,18 +1,20 @@
 import { Link } from "react-router-dom";
+import { slugWithId } from "../utils/generateSlug";
 
 const CardMovie = ({ item }) => {
   return (
     <Link
-      to={`/movie/${item.id}`}
+      to={`/movie/${slugWithId(item.title, item.id)}`}
       className="rounded-lg h-40 lg:h-52  w-full relative 
         inline-block mt-5 overflow-hidden cursor-pointer"
     >
       {item.poster_path && item.poster_path ? (
         <div>
           <img
-            className="w-full object-cover"
-            src={`https://image.tmdb.org/t/p/w185/${item.poster_path}`}
+            className="w-full h-full object-cover"
+            src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`}
             alt={item.name}
+            loading="lazy"
           />
         </div>
       ) : (
@@ -36,9 +38,7 @@ const CardMovie = ({ item }) => {
           opacity-0 hover:opacity-100 text-white"
       >
         <p className="white-space-normal text-xs font-bold">{item.name}</p>
-        <p className="text-xs font-light">
-          {item.overview.slice(0, 50) ?? "no data"}...
-        </p>
+        <p className="text-xs font-light">{item.overview.slice(0, 50) ?? "no data"}...</p>
         <div className="mt-1">
           <button className="font-bold flex items-center whitespace-nowrap text-xs py-1.5 px-2.5 w-full rounded-md hover:bg-black/50">
             <svg

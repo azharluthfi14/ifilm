@@ -2,11 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const navLink = [
-    { url: "movie", name: "Movies" },
-    { url: "tv", name: "Series" },
-  ];
-
   return (
     <nav className="h-16 flex items-center sticky bg-gray-900 border-b border-gray-800 shadow top-0 w-full z-20">
       <div className="layout flex justify-between items-center">
@@ -99,9 +94,7 @@ const Navbar = () => {
           </svg>
         </div>
         <div className=" hidden md:flex justify-between items-center space-x-3">
-          <button className="py-1.5 px-5 border border-gray-300 rounded-md">
-            Login
-          </button>
+          <button className="py-1.5 px-5 border border-gray-300 rounded-md">Login</button>
           <button className="py-1.5 px-5 bg-sky-500 border border-sky-500 rounded-md text-white">
             Create Account
           </button>
