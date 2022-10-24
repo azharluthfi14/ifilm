@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { slugWithId } from "../utils/generateSlug";
 
 const CardSeries = ({ item }) => {
   return (
     <Link
-      to={`/tv/${slugWithId(item.name, item.id)}`}
+      to={`/tv/${item.id}`}
       className="rounded-lg mt-3.5 max-w-lg max-h-2xl w-full h-full sm:h-48 lg:h-52 relative
       inline-block overflow-hidden cursor-pointer"
     >

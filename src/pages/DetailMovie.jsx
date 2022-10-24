@@ -9,22 +9,20 @@ import ReactPlayer from "react-player/youtube";
 import SkeletonBanner from "../components/SkeletonBanner";
 import SkeletonVideo from "../components/SkeletonVideo";
 import { convertDurattion } from "../utils/convertDuration";
-import getIdFromSlug from "../utils/parseSlug";
 
 const DetailMovie = () => {
   const { id } = useParams();
-  const movieId = getIdFromSlug(id);
 
   const getDetail = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${
+      `https://api.themoviedb.org/3/movie/${id}?api_key=${
         import.meta.env.VITE_TMDB_API_KEY
       }&language=en-US&include_image_language=en&append_to_response=videos,images,credits`
     );
 
     return data;
   };
-  const { data, isLoading } = useQuery(["detailMovie", movieId], getDetail);
+  const { data, isLoading } = useQuery(["detailMovie", id], getDetail);
 
   const getTrailer = data?.videos.results.findIndex((element) => element.type === "Trailer");
   const trailer = data?.videos.results[getTrailer]?.key;
@@ -207,7 +205,7 @@ const DetailMovie = () => {
           id={1}
           type="movie"
           title="More Like This"
-          url={`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${
+          url={`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${
             import.meta.env.VITE_TMDB_API_KEY
           }&language=en-US&page=1`}
         />
