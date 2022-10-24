@@ -6,8 +6,8 @@ const CardSeries = ({ item }) => {
   return (
     <Link
       to={`/tv/${slugWithId(item.name, item.id)}`}
-      className="rounded-lg h-40 lg:h-52  w-full relative 
-      inline-block mt-5 overflow-hidden cursor-pointer"
+      className="rounded-lg mt-3.5 max-w-lg max-h-2xl w-full h-full sm:h-48 lg:h-52 relative
+      inline-block overflow-hidden cursor-pointer"
     >
       {item.poster_path ? (
         <img

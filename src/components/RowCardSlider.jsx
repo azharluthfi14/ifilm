@@ -53,16 +53,27 @@ const RowCardSlider = ({ id, title, url, type }) => {
             nextEl: `.next${id}`,
             clickable: true,
           }}
-          spaceBetween={10}
           speed={1800}
           loop={true}
+          slidesPerView={3}
+          spaceBetween={10}
           breakpoints={{
             1024: {
               slidesPerView: 8,
               slidesPerGroup: 8,
-              spaceBetweenSlides: 20,
+              spaceBetweenSlides: 10,
             },
-            320: {
+            768: {
+              slidesPerView: 5,
+              slidesPerGroup: 5,
+              spaceBetweenSlides: 50,
+            },
+            640: {
+              slidesPerView: 4,
+              slidesPerGroup: 4,
+              spaceBetweenSlides: 50,
+            },
+            480: {
               slidesPerView: 3,
               slidesPerGroup: 3,
               spaceBetweenSlides: 10,

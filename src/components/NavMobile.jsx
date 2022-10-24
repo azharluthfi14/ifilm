@@ -92,14 +92,7 @@ const NavMobile = () => {
           </NavLink>
           <NavLink
             to="/"
-            className={({ isActive }) =>
-              [
-                "w-full flex space-y-1 flex-col justify-center text-center items-center",
-                isActive ? "text-violet-500 font-bold" : "text-slate-400",
-              ]
-                .filter(Boolean)
-                .join(" ")
-            }
+            className="w-full flex space-y-1 flex-col justify-center text-center items-center text-slate-400"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

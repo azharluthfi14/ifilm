@@ -55,6 +55,8 @@ const Banner = ({ movie }) => {
             src={`https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}`}
             alt="banner-movie"
             loading="lazy"
+            width="1100"
+            height="116"
             className="w-full h-full object-cover"
           />
         ) : (

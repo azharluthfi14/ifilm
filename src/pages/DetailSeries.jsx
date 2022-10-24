@@ -23,7 +23,7 @@ const DetailSeries = () => {
     return data;
   };
 
-  const { data: series, isLoading } = useQuery(["detailSeries", id], getDetail);
+  const { data: series, isLoading } = useQuery(["detailSeries", seriesId], getDetail);
 
   const getTrailer = series?.videos.results.findIndex(
     (element) => element.type === "Trailer" || element.type === "Teaser"

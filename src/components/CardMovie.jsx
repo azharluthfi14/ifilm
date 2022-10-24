@@ -5,18 +5,18 @@ const CardMovie = ({ item }) => {
   return (
     <Link
       to={`/movie/${slugWithId(item.title, item.id)}`}
-      className="rounded-lg h-40 lg:h-52  w-full relative 
-        inline-block mt-5 overflow-hidden cursor-pointer"
+      className="rounded-lg mt-3.5 max-w-lg max-h-2xl w-full h-full sm:h-48 lg:h-52 relative 
+        inline-block overflow-hidden cursor-pointer"
     >
       {item.poster_path && item.poster_path ? (
-        <div>
-          <img
-            className="w-full h-full object-cover"
-            src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`}
-            alt={item.name}
-            loading="lazy"
-          />
-        </div>
+        <img
+          className="w-full h-full max-w-[300px] max-h-[450px] object-cover overflow-hidden"
+          src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`}
+          alt={item.name}
+          loading="lazy"
+          width="300"
+          height="450"
+        />
       ) : (
         <div className="flex items-center justify-center h-full border border-slate-500 border-dashed overflow-hidden">
           <svg
