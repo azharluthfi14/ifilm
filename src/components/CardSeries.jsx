@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { slugWithId } from "../utils/generateSlug";
 
 const CardSeries = ({ item }) => {
   return (
     <Link
-      to={`/tv/${item?.id}`}
+      to={`/tv/${slugWithId(item.name, item.id)}`}
       className="rounded-lg h-40 lg:h-52  w-full relative 
       inline-block mt-5 overflow-hidden cursor-pointer"
     >
@@ -40,9 +41,7 @@ const CardSeries = ({ item }) => {
         opacity-0 hover:opacity-100 text-white"
       >
         <p className="white-space-normal text-xs font-bold">{item.name}</p>
-        <p className="text-xs font-light">
-          {item.overview.slice(0, 50) ?? "no data"}...
-        </p>
+        <p className="text-xs font-light">{item.overview.slice(0, 50) ?? "no data"}...</p>
 
         {/* <div className="absolute top-2 right-2 text-gray-300">
             <svg

@@ -1,5 +1,6 @@
-import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import { useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar, FreeMode } from "swiper";
 import CardMovie from "./CardMovie";
@@ -11,20 +12,16 @@ const RowCardSlider = ({ id, title, url, type }) => {
   const nextRef = useRef();
   const wrapperRef = useRef();
 
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState();
+  const getData = async () => {
+    const { data } = await axios.get(url);
+    return data.results;
+  };
 
-  useEffect(() => {
-    setLoading(true);
-    const getData = async () => {
-      const response = await axios.get(url);
-      setData(response.data?.results);
-      setLoading(false);
-    };
-    getData();
-  }, [url]);
+  const { data, isLoading, isError, error } = useQuery(["data", url], getData);
 
-  if (loading) return <SkeletonCard />;
+  if (isLoading) return <SkeletonCard />;
+
+  if (isError) return <h1>{error}</h1>;
 
   if (data?.length <= 3) return;
 
@@ -46,11 +43,7 @@ const RowCardSlider = ({ id, title, url, type }) => {
             stroke="currentColor"
             className="w-6 h-6 text-neutral-900"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.75 19.5L8.25 12l7.5-7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
           </svg>
         </div>
         <Swiper
@@ -77,12 +70,12 @@ const RowCardSlider = ({ id, title, url, type }) => {
           }}
         >
           {type === "movie"
-            ? data.map((item, id) => (
+            ? data?.map((item, id) => (
                 <SwiperSlide key={id}>
                   <CardMovie item={item} />
                 </SwiperSlide>
               ))
-            : data.map((item, id) => (
+            : data?.map((item, id) => (
                 <SwiperSlide key={id}>
                   <CardSeries item={item} />
                 </SwiperSlide>
@@ -101,11 +94,7 @@ const RowCardSlider = ({ id, title, url, type }) => {
             stroke="currentColor"
             className="w-6 h-6 text-neutral-900"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
           </svg>
         </div>
       </div>
