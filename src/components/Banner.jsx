@@ -6,7 +6,7 @@ const Banner = ({ movie }) => {
   return (
     <Link
       to={`/${movie.media_type}/${slugWithId(movie.title || movie.name, movie.id)}`}
-      className="rounded-xl flex overflow-hidden relative h-full md:h-[400px] bg-[#030b17] justify-between"
+      className="rounded-xl flex overflow-hidden relative h-full md:h-[400px] lg:h-[480px] bg-[#030b17] justify-between"
     >
       <div
         className="hidden md:flex z-10 relative flex-col justify-center px-12 md:w-5/12 h-full 
