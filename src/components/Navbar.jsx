@@ -29,8 +29,8 @@ const Navbar = () => {
                 to="/movie"
                 className={({ isActive }) =>
                   [
-                    "text-gray-300 hover:text-sky-400 flex items-center",
-                    isActive ? "text-sky-400 font-bold" : null,
+                    "text-gray-300 hover:text-sky-500 flex items-center",
+                    isActive ? "text-sky-500 font-bold" : null,
                   ]
                     .filter(Boolean)
                     .join(" ")
@@ -55,8 +55,8 @@ const Navbar = () => {
                 to="/tv"
                 className={({ isActive }) =>
                   [
-                    "text-gray-300 hover:text-sky-400 flex items-center",
-                    isActive ? "text-sky-400 font-bold" : null,
+                    "text-gray-300 hover:text-sky-500 flex items-center",
+                    isActive ? "text-sky-500 font-bold" : null,
                   ]
                     .filter(Boolean)
                     .join(" ")

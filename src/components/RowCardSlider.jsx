@@ -3,8 +3,7 @@ import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar, FreeMode } from "swiper";
-import CardMovie from "./CardMovie";
-import CardSeries from "./CardSeries";
+import Card from "./Card";
 import SkeletonCard from "./SkeletonCard";
 
 const RowCardSlider = ({ id, title, url, type }) => {
@@ -66,32 +65,23 @@ const RowCardSlider = ({ id, title, url, type }) => {
             },
             768: {
               slidesPerView: 5,
-              slidesPerGroup: 5,
               spaceBetweenSlides: 50,
             },
             640: {
               slidesPerView: 4,
-              slidesPerGroup: 4,
               spaceBetweenSlides: 50,
             },
             480: {
               slidesPerView: 3,
-              slidesPerGroup: 3,
               spaceBetweenSlides: 10,
             },
           }}
         >
-          {type === "movie"
-            ? data?.map((item, id) => (
-                <SwiperSlide key={id}>
-                  <CardMovie item={item} />
-                </SwiperSlide>
-              ))
-            : data?.map((item, id) => (
-                <SwiperSlide key={id}>
-                  <CardSeries item={item} />
-                </SwiperSlide>
-              ))}
+          {data?.map((item, id) => (
+            <SwiperSlide key={id}>
+              <Card type={type} item={item} />
+            </SwiperSlide>
+          ))}
         </Swiper>
         <div
           ref={nextRef}

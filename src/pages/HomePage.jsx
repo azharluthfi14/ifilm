@@ -27,7 +27,7 @@ const HomePage = () => {
 
         <RowCardSlider
           id={3}
-          type="series"
+          type="tv"
           title="Trending Series"
           url={seriesServices.getTrendingSeries}
         />

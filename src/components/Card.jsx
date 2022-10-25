@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { slugWithId } from "../utils/generateSlug";
 
-const CardMovie = ({ item }) => {
+const Card = ({ item, type }) => {
   return (
     <Link
-      to={`/movie/${slugWithId(item.title, item.id)}`}
+      to={`/${type}/${slugWithId(item.title || item.name, item.id)}`}
       className="rounded-lg mt-3.5 max-w-lg max-h-2xl w-full h-full sm:h-48 lg:h-52 relative 
         inline-block overflow-hidden cursor-pointer"
     >
-      {item.poster_path && item.poster_path ? (
+      {item.poster_path ? (
         <img
           className="w-full h-full max-w-[300px] max-h-[450px] object-cover overflow-hidden"
           src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`}
@@ -37,7 +37,7 @@ const CardMovie = ({ item }) => {
         className="absolute hidden md:flex flex-col justify-end top-0 p-2.5 left-0 w-full h-full hover:bg-gradient-to-t from-gray-800 overflow-hidden 
           opacity-0 hover:opacity-100 text-white"
       >
-        <p className="white-space-normal text-xs font-bold">{item.name}</p>
+        <p className="white-space-normal text-xs font-bold">{item.name || item.title}</p>
         <p className="text-xs font-light">{item.overview.slice(0, 50) ?? "no data"}...</p>
         <div className="mt-1">
           <button className="font-bold flex items-center whitespace-nowrap text-xs py-1.5 px-2.5 w-full rounded-md hover:bg-black/50">
@@ -63,4 +63,4 @@ const CardMovie = ({ item }) => {
   );
 };
 
-export default CardMovie;
+export default Card;

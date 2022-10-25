@@ -12,7 +12,7 @@ const NavMobile = () => {
             className={({ isActive }) =>
               [
                 "w-full flex space-y-1 flex-col justify-center text-center items-center",
-                isActive ? "text-violet-500 font-bold" : "text-slate-400",
+                isActive ? "text-sky-500 font-bold" : "text-slate-400",
               ]
                 .filter(Boolean)
                 .join(" ")
@@ -39,7 +39,7 @@ const NavMobile = () => {
             className={({ isActive }) =>
               [
                 "w-full flex space-y-1 flex-col justify-center text-center items-center",
-                isActive ? "text-violet-500 font-bold" : "text-slate-400",
+                isActive ? "text-sky-500 font-bold" : "text-slate-400",
               ]
                 .filter(Boolean)
                 .join(" ")
@@ -67,7 +67,7 @@ const NavMobile = () => {
             className={({ isActive }) =>
               [
                 "w-full flex space-y-1 flex-col justify-center text-center items-center",
-                isActive ? "text-violet-500 font-bold" : "text-slate-400",
+                isActive ? "text-sky-500 font-bold" : "text-slate-400",
               ]
                 .filter(Boolean)
                 .join(" ")

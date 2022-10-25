@@ -245,7 +245,7 @@ const DetailSeries = () => {
       <div className="mb-16 space-y-8">
         <RowCardSlider
           id={1}
-          type="series"
+          type="tv"
           title="More Like This"
           url={`https://api.themoviedb.org/3/tv/${seriesId}/recommendations?api_key=${
             import.meta.env.VITE_TMDB_API_KEY

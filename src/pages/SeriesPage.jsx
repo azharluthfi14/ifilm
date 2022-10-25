@@ -7,13 +7,13 @@ const SeriesPage = () => {
     <div className="mt-5 mb-16 space-y-8">
       <RowCardSlider
         id={1}
-        type="series"
+        type="tv"
         title="Popular Series"
         url={seriesServices.getPopularSeries}
       />
       <RowCardSlider
         id={2}
-        type="series"
+        type="tv"
         title="Top Rated Series"
         url={seriesServices.getTopRatedSeries}
       />
@@ -22,19 +22,19 @@ const SeriesPage = () => {
 
       <RowCardSlider
         id={4}
-        type="series"
+        type="tv"
         title="Animated Series"
         url={seriesServices.getAnimatedSeries}
       />
 
       <RowCardSlider
         id={5}
-        type="series"
+        type="tv"
         title="Action & Adventure"
         url={seriesServices.getActionAdventureSeries}
       />
 
-      <RowCardSlider id={6} type="series" title="Mystery" url={seriesServices.getMysterySeries} />
+      <RowCardSlider id={6} type="tv" title="Mystery" url={seriesServices.getMysterySeries} />
     </div>
   );
 };

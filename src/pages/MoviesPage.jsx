@@ -8,6 +8,7 @@ const MoviesPage = () => {
         <RowCardSlider
           id={1}
           type="movie"
+          linkTo="popular"
           title="Popular Movies"
           url={`https://api.themoviedb.org/3/movie/popular?api_key=${
             import.meta.env.VITE_TMDB_API_KEY
