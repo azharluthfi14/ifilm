@@ -207,6 +207,7 @@ const DetailSeries = () => {
           <Swiper
             className="rounded-lg overflow-hidden"
             spaceBetween={10}
+            observer={true}
             breakpoints={{
               1024: {
                 slidesPerView: 3,

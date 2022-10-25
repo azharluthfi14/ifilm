@@ -57,6 +57,7 @@ const RowCardSlider = ({ id, title, url, type }) => {
           loop={true}
           slidesPerView={3}
           spaceBetween={10}
+          observer={true}
           breakpoints={{
             1024: {
               slidesPerView: 8,

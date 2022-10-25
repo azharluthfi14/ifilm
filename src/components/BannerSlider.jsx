@@ -51,6 +51,7 @@ const BannerSlider = ({ title, url }) => {
           loop={true}
           speed={1000}
           centeredSlides={true}
+          observer={true}
           modules={[Autoplay, Navigation]}
           navigation={{
             prevEl: `.prevbanner`,
