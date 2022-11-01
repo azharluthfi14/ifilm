@@ -32,7 +32,10 @@ export default function App() {
       <QueryClientProvider client={queryClient}>
         <Toaster
           toastOptions={{
-            className: "bg-black bg-opacity-90 text-white p-2.5 rounded-full",
+            style: {
+              background: "#333",
+              color: "#fff",
+            },
           }}
         />
         <Routes>

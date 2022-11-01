@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "react-hot-toast";
 import { supabase } from "../supabase";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
@@ -17,9 +18,10 @@ export default function RegisterPage() {
     e.preventDefault();
     const { error } = await supabase.auth.signUp({ email, password });
     if (error) {
-      alert(error.message);
+      toast(error.message);
     } else {
       // Redirect user to Dashboard
+      toast("Your account has been successfully created.");
       navigate("/login");
     }
   };
@@ -30,7 +32,7 @@ export default function RegisterPage() {
       provider: "google",
     });
     if (error) {
-      alert(error.message);
+      toast(error.message);
     }
   };
 
@@ -187,6 +189,7 @@ export default function RegisterPage() {
                         <input
                           id="remember-me"
                           name="remember-me"
+                          required
                           type="checkbox"
                           className="h-4 w-4 rounded border-gray-700 bg-gray-700 text-sky-600 focus:ring-sky-500"
                         />

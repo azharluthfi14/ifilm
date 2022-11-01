@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { toast } from "react-hot-toast";
-import { useForm } from "react-hook-form";
+import { useAuth } from "../context/AuthContext";
 import { supabase } from "../supabase";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,6 +33,12 @@ const LoginPage = () => {
       alert(error.message);
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  });
 
   return (
     <>
