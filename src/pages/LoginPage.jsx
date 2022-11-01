@@ -30,7 +30,7 @@ const LoginPage = () => {
       provider: "google",
     });
     if (error) {
-      alert(error.message);
+      toast(error.message);
     }
   };
 
@@ -129,7 +129,6 @@ const LoginPage = () => {
                   >
                     Or
                   </div>
-
                   <form onSubmit={handleSubmit}>
                     <div className="grid">
                       <div className="mb-4">
@@ -137,7 +136,6 @@ const LoginPage = () => {
                           Email address
                         </label>
                         <input
-                          value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           type="email"
                           id="email"
@@ -153,7 +151,6 @@ const LoginPage = () => {
                         <div className="relative">
                           <input
                             type={showPassword ? "text" : "password"}
-                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             id="password"
                             name="password"
