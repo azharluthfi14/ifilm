@@ -1,8 +1,8 @@
 import React from "react";
-import { seriesServices } from "../api/series";
+import { seriesServices } from "../api/services/series";
 import RowCardSlider from "../components/RowCardSlider";
 
-const SeriesPage = () => {
+export default function SeriesPage() {
   return (
     <div className="mt-5 mb-16 space-y-8">
       <RowCardSlider
@@ -17,26 +17,20 @@ const SeriesPage = () => {
         title="Top Rated Series"
         url={seriesServices.getTopRatedSeries}
       />
-
       <RowCardSlider id={3} type="series" title="K-Series" url={seriesServices.getKSeries} />
-
       <RowCardSlider
         id={4}
         type="tv"
         title="Animated Series"
         url={seriesServices.getAnimatedSeries}
       />
-
       <RowCardSlider
         id={5}
         type="tv"
         title="Action & Adventure"
         url={seriesServices.getActionAdventureSeries}
       />
-
       <RowCardSlider id={6} type="tv" title="Mystery" url={seriesServices.getMysterySeries} />
     </div>
   );
-};
-
-export default SeriesPage;
+}

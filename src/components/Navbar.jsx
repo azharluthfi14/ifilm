@@ -1,17 +1,57 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { supabase } from "../supabase";
+import { useAuth } from "../context/AuthContext";
+import Search from "./Search";
 
-const Navbar = () => {
+const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <nav className="h-16 flex items-center sticky bg-gray-900 border-b border-gray-800 shadow top-0 w-full z-20">
+    <nav className="py-2 lg:py-4 flex items-center sticky bg-gray-900 border-b border-gray-800 shadow top-0 w-full z-20">
       <div className="layout flex justify-between items-center">
-        <div className="flex flex-row space-x-7 items-center">
-          <NavLink to="/" className="text-2xl flex items-center font-bold ">
+        <div className="flex flex-row space-x-2 lg:space-x-7 items-center">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setSidebarOpen(!sidebarOpen);
+            }}
+            aria-expanded={sidebarOpen}
+            className="flex md:hidden"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+          <NavLink
+            to="/"
+            className="flex text-base  lg:text-2xl flex-row text-center items-center "
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 mr-1 text-sky-500"
+              className="w-5 h-5 lg:w-6 lg:h-6 mr-1 text-sky-500"
             >
               <path
                 fillRule="evenodd"
@@ -77,27 +117,36 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="flex md:hidden">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </div>
-        <div className=" hidden md:flex justify-between items-center space-x-3">
-          <button className="py-1.5 px-5 border border-gray-300 rounded-md">Login</button>
-          <button className="py-1.5 px-5 bg-sky-500 border border-sky-500 rounded-md text-white">
-            Create Account
-          </button>
+
+        <div className="flex justify-between items-center space-x-3">
+          <Search />
+          <div className="hidden md:flex justify-between items-center space-x-3">
+            {user ? (
+              <>
+                <button className="py-1.5 px-5 border border-gray-300 rounded-md">
+                  {user?.email}
+                </button>
+
+                <button
+                  onClick={handleLogout}
+                  className="py-1.5 px-5 bg-sky-500 border border-sky-500 rounded-md text-white"
+                >
+                  Log out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link to="login">
+                  <button className="py-1.5 px-5 border border-gray-300 rounded-md">Login</button>
+                </Link>
+                <Link to="register">
+                  <button className="py-1.5 px-5 bg-sky-500 border border-sky-500 rounded-md text-white">
+                    Create Account
+                  </button>
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </nav>

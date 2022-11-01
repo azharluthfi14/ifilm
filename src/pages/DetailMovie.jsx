@@ -1,9 +1,10 @@
-import axios from "axios";
+import api from "../api";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import RowCardSlider from "../components/RowCardSlider";
 import ReactPlayer from "react-player/youtube";
 import SkeletonBanner from "../components/SkeletonBanner";
@@ -11,16 +12,15 @@ import SkeletonVideo from "../components/SkeletonVideo";
 import { convertDurattion } from "../utils/convertDuration";
 import getIdFromSlug from "../utils/parseSlug";
 
-const DetailMovie = () => {
+export default function DetailMovie() {
   const { id } = useParams();
   const movieId = getIdFromSlug(id);
-  const [showMore, setShowMore] = useState(false);
+
+  const api_key = import.meta.env.VITE_TMDB_API_KEY;
 
   const getDetail = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${movieId}?api_key=${
-        import.meta.env.VITE_TMDB_API_KEY
-      }&language=en-US&include_image_language=en&append_to_response=videos,images,credits`
+    const { data } = await api.get(
+      `movie/${movieId}?api_key=${api_key}&language=en-US&include_image_language=en&append_to_response=videos,images,credits`
     );
 
     return data;
@@ -29,9 +29,6 @@ const DetailMovie = () => {
 
   const getTrailer = data?.videos.results.findIndex((element) => element.type === "Trailer");
   const trailer = data?.videos.results[getTrailer]?.key;
-
-  const showAll = data?.credits?.cast.slice(0, 8);
-  const mobileShow = showMore ? data.credits.cast : showAll;
 
   return (
     <>
@@ -47,11 +44,30 @@ const DetailMovie = () => {
           <div className="my-5 w-full h-[190px] md:h-[385px] lg:h-[480px] rounded-xl relative bg-[#030b17]">
             <div className="overflow-hidden h-full rounded-xl">
               <div className="max-w-[990px] h-full w-full md:w-[450px] lg:w-[550px] xl:w-[650px] 2xl:w-[850px] float-right flex">
-                <img
-                  src={`https://image.tmdb.org/t/p/w780/${data?.backdrop_path}`}
-                  alt="banner"
-                  className="w-full md:h-full object-cover"
-                />
+                {data?.backdrop_path ? (
+                  <LazyLoadImage
+                    src={`https://image.tmdb.org/t/p/w780/${data?.backdrop_path}`}
+                    alt="banner"
+                    className="w-full md:h-full object-cover"
+                    width={800}
+                    height={195}
+                  />
+                ) : (
+                  <div className="flex items-center justify-center h-full w-full overflow-hidden">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-10 h-10 text-slate-500"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                )}
               </div>
             </div>
             <div className="hidden md:block absolute top-0 right-[251px] lg:right-[351px] xl:right-[451px] 2xl:right-[651px] w-[200px] h-full bg-gradient-to-r from-[#030b17] to-transparent"></div>
@@ -59,11 +75,13 @@ const DetailMovie = () => {
               <div className="pl-10 mt-12">
                 <div className="flex flex-row gap-7">
                   <div>
-                    <img
+                    <LazyLoadImage
                       src={`https://image.tmdb.org/t/p/w185/${data?.poster_path}`}
                       alt={data?.title}
                       className="h-40 w-28 max-w-md rounded-lg"
                       loading="lazy"
+                      width={160}
+                      height={112}
                     />
                   </div>
                   <div>
@@ -81,7 +99,7 @@ const DetailMovie = () => {
                           clipRule="evenodd"
                         />
                       </svg>
-                      <span>{data?.vote_average}</span>
+                      <span>{String(data?.vote_average)[0]}</span>
                     </div>
                     <div
                       className="inline-flex whitespace-nowrap mb-3 w-full font-semibold 
@@ -162,30 +180,42 @@ const DetailMovie = () => {
           <div className="hidden md:block w-full border-b border-slate-500"></div>
 
           <div className="my-7">
-            <h3 className="mb-3">Top Cast</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
-              {data?.credits?.cast.slice(0, 8).map((c) => (
-                <div
-                  key={c.id}
-                  className="flex bg-[#030b17] p-3 rounded-lg flex-col items-center m-2 hover:cursor-default"
-                >
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${c.profile_path}`}
-                    alt={c.character}
-                    className="rounded-full mb-2 w-20 h-20 object-cover"
-                  />
-                  <p className="text-gray-200 text-sm font-semibold">{c.name}</p>
-                  <p className="text-gray-500 italic text-sm"> {c.character}</p>
+            {data?.credits.cast.length > 0 && (
+              <>
+                <h3 className="mb-3">Top Cast</h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8">
+                  {data?.credits?.cast.slice(0, 8).map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex bg-[#030b17] p-3 rounded-lg flex-col items-center m-2 hover:cursor-default"
+                    >
+                      {item.profile_path ? (
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
+                          alt={item.character}
+                          className="rounded-full mb-2 w-20 h-20 object-cover"
+                        />
+                      ) : (
+                        <img
+                          src={`https://ui-avatars.com/api/?background=random&name=${item.name}`}
+                          alt={item.character}
+                          className="rounded-full mb-2 w-20 h-20 object-cover"
+                        />
+                      )}
+                      <p className="text-gray-200 text-sm font-semibold">{item.name}</p>
+                      <p className="text-gray-500 italic text-sm"> {item.character}</p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </div>
         </>
       )}
 
       {isLoading ? (
         <SkeletonVideo />
-      ) : (
+      ) : data?.images?.backdrops.length > 0 ? (
         <div className="mt-5 mb-10">
           <h3 className="mb-5">Trailers</h3>
           <Swiper
@@ -215,17 +245,18 @@ const DetailMovie = () => {
 
             {data?.images?.backdrops.slice(0, 5).map((item, i) => (
               <SwiperSlide key={i} className="rounded-lg cursor-pointer overflow-hidden">
-                <img
+                <LazyLoadImage
                   src={`https://image.tmdb.org/t/p/w780/${item?.file_path}`}
                   alt="backdrop"
                   className="w-full object-cover"
-                  loading="lazy"
+                  width={300}
+                  height={100}
                 />
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
-      )}
+      ) : null}
 
       <div className="mb-16 space-y-8">
         <RowCardSlider
@@ -239,6 +270,4 @@ const DetailMovie = () => {
       </div>
     </>
   );
-};
-
-export default DetailMovie;
+}

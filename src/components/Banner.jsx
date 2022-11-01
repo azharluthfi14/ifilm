@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { slugWithId } from "../utils/generateSlug";
 
 const Banner = ({ movie }) => {
@@ -51,13 +52,12 @@ const Banner = ({ movie }) => {
       ></div>
       <div className="w-full md:w-7/12">
         {movie?.backdrop_path ? (
-          <img
+          <LazyLoadImage
             src={`https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}`}
             alt="banner-movie"
-            loading="lazy"
-            width="1100"
-            height="616"
             className="w-full h-full object-cover"
+            width={800}
+            height={195}
           />
         ) : (
           <img

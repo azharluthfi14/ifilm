@@ -1,7 +1,26 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
 import { slugWithId } from "../utils/generateSlug";
 
-const Card = ({ item, type }) => {
+export default function Card({ item, type }) {
+  const navigate = useNavigate();
+  const [addWatchlist, setAddWatchlist] = useState(false);
+  const { user } = useAuth();
+
+  const handleAddToWatchlist = (e) => {
+    e.preventDefault();
+    if (user) {
+      setAddWatchlist(!addWatchlist);
+      toast(`${addWatchlist ? "Remove" : "Add"} watchlist`, { position: "bottom-center" });
+    } else {
+      toast("Please sign in with your account");
+      navigate("/login");
+    }
+  };
+
   return (
     <Link
       to={`/${type}/${slugWithId(item.title || item.name, item.id)}`}
@@ -9,13 +28,12 @@ const Card = ({ item, type }) => {
         inline-block overflow-hidden cursor-pointer"
     >
       {item.poster_path ? (
-        <img
+        <LazyLoadImage
           className="w-full h-full max-w-[300px] max-h-[450px] object-cover overflow-hidden"
           src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`}
           alt={item.name}
-          loading="lazy"
-          width="300"
-          height="450"
+          width={100}
+          height={150}
         />
       ) : (
         <div className="flex items-center justify-center h-full border border-slate-500 border-dashed overflow-hidden">
@@ -38,29 +56,45 @@ const Card = ({ item, type }) => {
           opacity-0 hover:opacity-100 text-white"
       >
         <p className="white-space-normal text-xs font-bold">{item.name || item.title}</p>
-        <p className="text-xs font-light">{item.overview.slice(0, 50) ?? "no data"}...</p>
+        <p className="text-xs font-light">{item.overview && item.overview.slice(0, 50)}...</p>
         <div className="mt-1">
-          <button className="font-bold flex items-center whitespace-nowrap text-xs py-1.5 px-2.5 w-full rounded-md hover:bg-black/50">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-3 h-3 mr-1"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-              />
-            </svg>
-            Save to watchlist
+          <button
+            onClick={handleAddToWatchlist}
+            type="button"
+            className="font-bold flex flex-row justify-center items-center whitespace-nowrap py-2 px-1 w-full rounded-md hover:bg-black/50"
+          >
+            {addWatchlist ? (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1}
+                  stroke="currentColor"
+                  className="w-3 h-3 mr-1"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span className="text-xs">Remove watchlist</span>
+              </>
+            ) : (
+              <>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1}
+                  stroke="currentColor"
+                  className="w-3 h-3 mr-1"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                <span className="text-xs">Add to watchlist</span>
+              </>
+            )}
           </button>
         </div>
       </div>
     </Link>
   );
-};
-
-export default Card;
+}

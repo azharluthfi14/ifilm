@@ -1,18 +1,21 @@
-import axios from "axios";
+import api from "../api";
 import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar, FreeMode } from "swiper";
+import { supabase } from "../supabase";
+import { useAuth } from "../context/AuthContext";
 import Card from "./Card";
 import SkeletonCard from "./SkeletonCard";
 
-const RowCardSlider = ({ id, title, url, type }) => {
+export default function RowCardSlider({ id, title, url, type }) {
   const prevRef = useRef();
   const nextRef = useRef();
   const wrapperRef = useRef();
+  const { user } = useAuth();
 
   const getData = async () => {
-    const { data } = await axios.get(url);
+    const { data } = await api.get(url);
     return data.results;
   };
 
@@ -102,6 +105,4 @@ const RowCardSlider = ({ id, title, url, type }) => {
       </div>
     </div>
   );
-};
-
-export default RowCardSlider;
+}

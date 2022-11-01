@@ -1,17 +1,40 @@
-import { useLayoutEffect } from "react";
+import { useLayoutEffect, useState, useEffect } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
+import TopBarProgress from "react-topbar-progress-indicator";
 import Navbar from "./Navbar";
+import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import NavMobile from "./NavMobile";
 
 const Layout = () => {
   const location = useLocation();
+  TopBarProgress.config({
+    barColors: {
+      0: "#0ea5e9",
+      "1.0": "#0ea5e9",
+    },
+    shadowBlur: 1,
+  });
+  const helmetContext = {};
+
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const [progress, setProgress] = useState(false);
+  const [prevLoc, setPrevLoc] = useState("");
+
   useLayoutEffect(() => {
     document.documentElement.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const helmetContext = {};
+  useEffect(() => {
+    setPrevLoc(location);
+    setProgress(true);
+  }, [location]);
+
+  useEffect(() => {
+    setProgress(false);
+  }, [prevLoc]);
 
   return (
     <>
@@ -27,7 +50,8 @@ const Layout = () => {
             content="Watch movies & TV shows online or stream right to your smart TV, game console, PC, Mac, mobile, tablet and more."
           />
         </Helmet>
-        <Navbar />
+        {progress && <TopBarProgress />}
+        <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <div className="layout">
           <Outlet />
         </div>

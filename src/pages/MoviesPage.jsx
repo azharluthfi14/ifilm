@@ -1,7 +1,8 @@
 import React from "react";
+import { movieServices } from "../api/services/movies";
 import RowCardSlider from "../components/RowCardSlider";
 
-const MoviesPage = () => {
+export default function MoviesPage() {
   return (
     <>
       <div className="mt-5 mb-16 space-y-8">
@@ -82,6 +83,4 @@ const MoviesPage = () => {
       </div>
     </>
   );
-};
-
-export default MoviesPage;
+}

@@ -109,7 +109,7 @@ const NavMobile = () => {
               />
             </svg>
 
-            <span className="text-xs">Saved</span>
+            <span className="text-xs">Watchlist</span>
           </NavLink>
         </div>
       </div>

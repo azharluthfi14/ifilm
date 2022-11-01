@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,7 +11,7 @@ const BannerSlider = ({ title, url }) => {
   const nextBannerRef = useRef();
 
   const getData = async () => {
-    const { data } = await axios.get(url);
+    const { data } = await api.get(url);
     return data.results;
   };
 

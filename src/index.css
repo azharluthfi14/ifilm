@@ -37,4 +37,8 @@
     max-width: 95.75rem;
     @apply mx-auto w-11/12;
   }
+
+  .bubble {
+    border-radius: 52% 48% 45% 55% / 54% 29% 71% 46%;
+  }
 }

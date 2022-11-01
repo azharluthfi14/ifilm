@@ -1,10 +1,10 @@
-import { movieServices } from "../api/movies";
-import { seriesServices } from "../api/series";
-import { bannerServices } from "../api/banner";
 import BannerSlider from "../components/BannerSlider";
 import RowCardSlider from "../components/RowCardSlider";
+import { bannerServices } from "../api/services/banner";
+import { movieServices } from "../api/services/movies";
+import { seriesServices } from "../api/services/series";
 
-const HomePage = () => {
+export default function HomePage() {
   return (
     <>
       <div className="mt-5 mb-3 md:mb-8">
@@ -17,21 +17,18 @@ const HomePage = () => {
           title="Trending Movies"
           url={movieServices.getTrendingMovies}
         />
-
         <RowCardSlider
           id={2}
           title="Indonesia Movies"
           type="movie"
           url={movieServices.getIndonesianMovies}
         />
-
         <RowCardSlider
           id={3}
           type="tv"
           title="Trending Series"
           url={seriesServices.getTrendingSeries}
         />
-
         <RowCardSlider
           id={4}
           type="movie"
@@ -41,6 +38,4 @@ const HomePage = () => {
       </div>
     </>
   );
-};
-
-export default HomePage;
+}
