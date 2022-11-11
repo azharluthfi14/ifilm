@@ -7,21 +7,20 @@ const Banner = ({ movie }) => {
   return (
     <Link
       to={`/${movie.media_type}/${slugWithId(movie.title || movie.name, movie.id)}`}
-      className="rounded-xl flex overflow-hidden relative h-full md:h-[400px] lg:h-[480px] bg-[#030b17] justify-between"
+      className="block w-full rounded-xl overflow-hidden bg-[#030b17]"
+      // className="rounded-xl flex overflow-hidden relative h-full md:h-[400px] lg:h-[480px] bg-[#030b17] justify-between"
     >
-      <div
-        className="hidden md:flex z-10 relative flex-col justify-center px-12 md:w-5/12 h-full 
-   "
-      >
-        <h1 className="mb-2 text-3xl text-white font-bold">
-          {movie?.title} {movie?.name}
-        </h1>
-        <ul className="flex items-center flex-row mb-5 space-x-3">
-          {movie?.adult ? <li>18+</li> : <li>PG-13</li>}
-          <li>
-            {movie?.release_date?.slice(0, 4)} {movie?.first_air_date?.slice(0, 4)}
-          </li>
-          {/* <li className="flex items-center">
+      <div className="relative flex justify-between h-full md:h-[400px] lg:h-[480px]">
+        <div className="hidden md:flex z-10 relative flex-col justify-center px-12 md:w-5/12 h-full">
+          <h1 className="mb-2 text-3xl text-white font-bold">
+            {movie?.title} {movie?.name}
+          </h1>
+          <ul className="flex items-center flex-row mb-5 space-x-3">
+            {movie?.adult ? <li>18+</li> : <li>PG-13</li>}
+            <li>
+              {movie?.release_date?.slice(0, 4)} {movie?.first_air_date?.slice(0, 4)}
+            </li>
+            {/* <li className="flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -36,47 +35,48 @@ const Banner = ({ movie }) => {
             </svg>
             <span className="text-lg">{movie?.vote_average}</span>
           </li> */}
-        </ul>
+          </ul>
 
-        {movie?.overview.length > 350 ? (
-          <p className="w-[550px] font-base leading-relaxed text-gray-300">
-            {movie?.overview.slice(0, 250)}..
-          </p>
-        ) : (
-          <p className="w-[550px] font-base leading-relaxed text-gray-300">{movie?.overview}</p>
-        )}
-      </div>
-      <div
-        className="absolute md:block w-[800px] h-full bg-gradient-to-t md:bg-gradient-to-r 
+          {movie?.overview.length > 350 ? (
+            <p className="w-[550px] font-base leading-relaxed text-gray-300">
+              {movie?.overview.slice(0, 250)}..
+            </p>
+          ) : (
+            <p className="w-[550px] font-base leading-relaxed text-gray-300">{movie?.overview}</p>
+          )}
+        </div>
+        <div
+          className="absolute md:block w-[800px] h-full bg-gradient-to-t md:bg-gradient-to-r 
       from-[#030b17] to-transparent md:left-[37vw]"
-      ></div>
-      <div className="w-full md:w-7/12">
-        {movie?.backdrop_path ? (
-          <LazyLoadImage
-            src={`https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}`}
-            alt="banner-movie"
-            className="w-full h-full object-cover"
-            width={800}
-            height={195}
-          />
-        ) : (
-          <img
-            src={`https://via.placeholder.com/150/1e293b/FFF?text=No+Data`}
-            alt="banner-movie"
-            loading="lazy"
-            className="w-full h-full object-contain md:object-cover"
-          />
-        )}
-      </div>
-      <div className="md:hidden absolute bottom-1 p-3.5">
-        <h4 className="text-slate-200 mb-1 text-sm">
-          {movie?.name} {movie.title}
-        </h4>
-        {movie?.overview.length > 150 ? (
-          <p className="text-xs font-base text-slate-300">{movie?.overview.slice(0, 100)}...</p>
-        ) : (
-          <p className="font-base text-xs text-slate-300">{movie?.overview}</p>
-        )}
+        ></div>
+        <div className="w-full md:w-7/12 aspect-[3/2]">
+          {movie?.backdrop_path ? (
+            <LazyLoadImage
+              src={`https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}`}
+              alt="banner-movie"
+              className="w-full h-full object-cover"
+              width={800}
+              height={185}
+            />
+          ) : (
+            <img
+              src={`https://via.placeholder.com/150/1e293b/FFF?text=No+Data`}
+              alt="banner-movie"
+              loading="lazy"
+              className="w-full h-full object-contain md:object-cover"
+            />
+          )}
+        </div>
+        <div className="md:hidden absolute bottom-1 p-3.5">
+          <h4 className="text-slate-200 mb-1 text-sm">
+            {movie?.name} {movie.title}
+          </h4>
+          {movie?.overview.length > 150 ? (
+            <p className="text-xs font-base text-slate-300">{movie?.overview.slice(0, 100)}...</p>
+          ) : (
+            <p className="font-base text-xs text-slate-300">{movie?.overview}</p>
+          )}
+        </div>
       </div>
     </Link>
   );

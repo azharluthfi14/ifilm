@@ -1,10 +1,10 @@
 import api from "../api";
-import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+
 import RowCardSlider from "../components/RowCardSlider";
 import ReactPlayer from "react-player/youtube";
 import SkeletonBanner from "../components/SkeletonBanner";
@@ -15,7 +15,6 @@ import getIdFromSlug from "../utils/parseSlug";
 export default function DetailMovie() {
   const { id } = useParams();
   const movieId = getIdFromSlug(id);
-
   const api_key = import.meta.env.VITE_TMDB_API_KEY;
 
   const getDetail = async () => {
@@ -74,11 +73,11 @@ export default function DetailMovie() {
             <div className="hidden md:block absolute top-0 h-full w-full">
               <div className="pl-10 mt-12">
                 <div className="flex flex-row gap-7">
-                  <div>
+                  <div className="bg-slate-800 h-40 w-28 max-w-md overflow-hidden rounded-lg">
                     <LazyLoadImage
                       src={`https://image.tmdb.org/t/p/w185/${data?.poster_path}`}
                       alt={data?.title}
-                      className="h-40 w-28 max-w-md rounded-lg"
+                      className="object-cover"
                       loading="lazy"
                       width={160}
                       height={112}
@@ -236,15 +235,19 @@ export default function DetailMovie() {
           >
             <SwiperSlide className="rounded-lg cursor-pointer overflow-hidden">
               <ReactPlayer
+                className="aspect-video"
                 url={`https://www.youtube.com/watch?v=${trailer}`}
-                width="100%"
-                height="228px"
                 controls={true}
+                width="100%"
+                height="100%"
               />
             </SwiperSlide>
 
             {data?.images?.backdrops.slice(0, 5).map((item, i) => (
-              <SwiperSlide key={i} className="rounded-lg cursor-pointer overflow-hidden">
+              <SwiperSlide
+                key={i}
+                className="rounded-lg bg-slate-800 aspect-video cursor-pointer overflow-hidden"
+              >
                 <LazyLoadImage
                   src={`https://image.tmdb.org/t/p/w780/${item?.file_path}`}
                   alt="backdrop"

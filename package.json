@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.0.4",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^4.13.0",
     "@tanstack/react-query-devtools": "^4.13.0",
     "axios": "^1.1.2",
+    "cssnano": "^5.1.14",
     "firebase": "^9.12.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
