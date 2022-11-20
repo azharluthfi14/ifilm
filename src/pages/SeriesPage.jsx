@@ -17,7 +17,7 @@ export default function SeriesPage() {
         title="Top Rated Series"
         url={seriesServices.getTopRatedSeries}
       />
-      <RowCardSlider id={3} type="series" title="K-Series" url={seriesServices.getKSeries} />
+      <RowCardSlider id={3} type="tv" title="K-Series" url={seriesServices.getKSeries} />
       <RowCardSlider
         id={4}
         type="tv"
